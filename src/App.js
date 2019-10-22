@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import PlanetView from "./Components/PlanetView";
+import PersonView from "./Components/PersonView";
+import People from "./Components/People";
+import FilmView from "./Components/FilmView";
+import Films from "./Components/Films";
+import Planets from "./Components/Planets";
+import NoMatch from "./Components/NoMatch";
+import Navbar from "./Components/Navbar";
+import { Switch, Route} from "react-router-dom";
+import Home from "./Components/Home";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = () => (
+  <>
+  <Navbar />
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/planets" component={Planets} />
+      <Route exact path="/planets/:id" component={PlanetView} />
+      <Route exact path="/people" component={People} />
+      <Route exact path="/people/:id" component={PersonView} />
+      <Route exact path="/films" component={Films} />
+      <Route exact path="/films/:id" component={FilmView} />
+      <Route component={NoMatch} />
+    </Switch>
+  </>
+)
 
 export default App;
