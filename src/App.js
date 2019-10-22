@@ -18,11 +18,11 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/planets" component={Planets} />
-      <Route exact path="/planets/:id" component={PlanetView} />
+      <Route exact path="/planets/:name" component={PlanetView} />
       <Route exact path="/people" component={People} />
-      <Route exact path="/people/:id" component={PersonView} />
+      <Route exact path="/people/:name" component={PersonView} />
       <Route exact path="/films" component={Films} />
-      <Route exact path="/films/:id" component={FilmView} />
+      <Route exact path="/films/:name" component={FilmView} />
       <Route component={NoMatch} />
     </Switch>
   </>
