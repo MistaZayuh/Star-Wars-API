@@ -6,15 +6,15 @@ import { Button, Container, Header, Input, Pagination, } from "semantic-ui-react
 class Planets extends React.Component {
   state = { planetsObj: {}, planets: [], page: 1, search: "", results: null, };
 
-  // componentDidMount() {
-  //   axios.get("https://swapi.co/api/planets/")
-  //     .then(res => {
-  //       this.setState({ planetsObj: res.data, planets: res.data.results})
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
+  componentDidMount() {
+    axios.get("https://swapi.co/api/planets/")
+      .then(res => {
+        this.setState({ planetsObj: res.data, planets: res.data.results})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value })
@@ -32,12 +32,12 @@ class Planets extends React.Component {
   };
 
   clearInput = () => {
-    this.setState({ search: "", results: [] })
+    this.setState({ search: "", results: null })
   };
 
   renderPlanets = () => (
     this.state.planets.map(p => (
-      <Container>
+      <Container key={p.name}>
         <Link to={`/planets/${p.name}`}>
           <Header as="h3">
             {p.name}
@@ -49,7 +49,7 @@ class Planets extends React.Component {
 
   renderResults = () => (
     this.state.results.map(p => (
-      <Container>
+      <Container key={p.name}>
         <Link to={`/planets/${p.name}`}>
           <Header as="h3">
             {p.name}
@@ -59,6 +59,23 @@ class Planets extends React.Component {
     ))
   );
 
+  pageLeft = () => {
+    if (this.state.page > 1) {
+      var next = this.state.page -1
+      axios.get(`https://swapi.co/api/planets/?page=${next}`)
+      .then(res => {
+        this.setState({page: next, planets: res.data.results})
+      })
+    }
+  };
+
+  pageRight = () => {
+    var next = this.state.page +1
+    axios.get(`https://swapi.co/api/planets/?page=${next}`)
+      .then(res => {
+        this.setState({page: next, planets: res.data.results})
+      })
+  };
 
   render() {
     const { planets, search, results } = this.state;
@@ -91,15 +108,17 @@ class Planets extends React.Component {
               this.renderPlanets()
           }
         </Container>
-        <Pagination
-          boundaryRange={0}
-          defaultActivePage={1}
-          ellipsisItem={null}
-          firstItem={null}
-          lastItem={null}
-          siblingRange={1}
-          totalPages={10}
-        />
+        <Container display="flex" alignItems="row">
+          <Button
+            icon="arrow left"
+            onClick={this.pageLeft}
+          />
+          <p>{this.state.page}</p>
+          <Button
+            icon="arrow right"
+            onClick={this.pageRight}
+          />
+        </Container>
       </div>
     );
   };
