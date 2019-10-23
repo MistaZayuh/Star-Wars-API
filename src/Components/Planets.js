@@ -38,7 +38,7 @@ class Planets extends React.Component {
   renderPlanets = () => (
     this.state.planets.map(p => (
       <Container key={p.name}>
-        <Link to={`/planets/${p.name}`}>
+        <Link to={{ pathname: `/planets/${p.name}`, state: { url: p.url } }}>
           <Header as="h3">
             {p.name}
           </Header>
@@ -50,7 +50,7 @@ class Planets extends React.Component {
   renderResults = () => (
     this.state.results.map(p => (
       <Container key={p.name}>
-        <Link to={`/planets/${p.name}`}>
+        <Link to={{ pathname: `/planets/${p.name}`, state: { url: p.url } }}>
           <Header as="h3">
             {p.name}
           </Header>

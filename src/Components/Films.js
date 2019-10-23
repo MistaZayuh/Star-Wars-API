@@ -19,7 +19,7 @@ class Films extends React.Component {
   renderFilms = () => (
     this.state.films.map(f => (
       <Container>
-        <Link to={`/films/${f.title}`}>
+        <Link to={{ pathname: `/films/${f.title}`, state: { url: f.url } }}>
           <Header as="h3">
             {f.title}
           </Header>

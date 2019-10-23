@@ -84,7 +84,6 @@ class People extends React.Component {
     return (
       <div>
         <div>
-
           <Header textAlign="center" as="h1">Characters</Header>
           <div>
             <Input
